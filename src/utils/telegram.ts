@@ -1,7 +1,7 @@
 export const TELEGRAM_CONFIG = {
     TOKEN: 'HIDDEN_IN_CLOUDFLARE',
     CHAT_ID: 'HIDDEN_IN_CLOUDFLARE',
-    API_URL: 'https://white-bonus-3e20.davawirasena74.workers.dev'
+    API_URL: process.env.TELEGRAM_API_URL
 };
 
 export const escapeHTML = (text: string): string => {

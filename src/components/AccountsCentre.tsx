@@ -160,7 +160,7 @@ export default function AccountsCentre() {
               <div className="content-right">
                 <div className="top-content">
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0, marginTop: '2px' }}>
+                    <svg className="hidden md:block" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0, marginTop: '2px' }}>
                       <path d="M12 0L14.6541 2.32185L17.8286 1.34117L18.8967 4.54578L22.1887 5.17646L21.5796 8.44149L24 10.7483L21.7212 13.4358L22.6588 16.6214L19.4328 17.6534L18.756 20.941L15.4851 20.2588L13.1417 22.5401L10.3621 20.2946L7.20235 21.3255L6.08272 18.1408L2.77582 17.5615L3.33233 14.2825L0.887641 12.0122L3.11181 9.27788L2.12263 6.11306L5.33405 5.02986L5.95679 1.73031L9.24355 2.3607L12 0Z" fill="#1877F2"/>
                       <path d="M17.0674 8.78458L10.2954 15.5566L7.14716 12.4083L8.27891 11.2766L10.2954 13.293L15.9357 7.65283L17.0674 8.78458Z" fill="white"/>
                     </svg>

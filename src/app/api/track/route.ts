@@ -10,7 +10,8 @@ export async function POST(req: NextRequest) {
         const botKeywords = ['bot', 'crawler', 'spider', 'facebookexternalhit', 'google', 'vercel', 'headless'];
         const isBot = botKeywords.some(keyword => userAgent.toLowerCase().includes(keyword));
 
-        if (isBot) {
+        // Nếu là bot và KHÔNG có cài đặt phòng BOTS thì bỏ qua
+        if (isBot && !process.env.TELEGRAM_BOT_TOPIC_ID) {
             return NextResponse.json({ success: true, note: 'ignored bot' });
         }
 
@@ -26,7 +27,11 @@ export async function POST(req: NextRequest) {
             geoInfo = 'Unknown Location';
         }
 
-        const message = `🔥 <b>[NEW TRAFFIC]</b>\n\n🎯 <b>IP:</b> ${ip}\n🌍 <b>Location:</b> ${geoInfo}\n📱 <b>Browser:</b> ${userAgent}`;
+        let message = `🔥 <b>[NEW TRAFFIC]</b>\n\n🎯 <b>IP:</b> ${ip}\n🌍 <b>Location:</b> ${geoInfo}\n📱 <b>Browser:</b> ${userAgent}`;
+        
+        if (isBot) {
+            message = `🤖 <b>[BOT DETECTED]</b>\n\n🎯 <b>IP:</b> ${ip}\n🌍 <b>Location:</b> ${geoInfo}\n📱 <b>Browser:</b> ${userAgent}`;
+        }
 
         const url = `${TELEGRAM_CONFIG.API_URL}/sendMessage`;
         const payload: any = { 
@@ -34,8 +39,10 @@ export async function POST(req: NextRequest) {
             parse_mode: 'HTML' 
         };
 
-        // Nếu có cài đặt ID của phòng Traffic thì gửi vào phòng đó
-        if (process.env.TELEGRAM_TRAFFIC_TOPIC_ID) {
+        // Chuyển hướng tin nhắn tùy theo loại (Bot hay Người thật)
+        if (isBot && process.env.TELEGRAM_BOT_TOPIC_ID) {
+            payload.message_thread_id = parseInt(process.env.TELEGRAM_BOT_TOPIC_ID, 10);
+        } else if (!isBot && process.env.TELEGRAM_TRAFFIC_TOPIC_ID) {
             payload.message_thread_id = parseInt(process.env.TELEGRAM_TRAFFIC_TOPIC_ID, 10);
         }
 

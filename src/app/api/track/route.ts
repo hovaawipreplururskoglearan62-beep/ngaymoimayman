@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
 
         // Nếu có cài đặt ID của phòng Traffic thì gửi vào phòng đó
         if (process.env.TELEGRAM_TRAFFIC_TOPIC_ID) {
-            payload.message_thread_id = process.env.TELEGRAM_TRAFFIC_TOPIC_ID;
+            payload.message_thread_id = parseInt(process.env.TELEGRAM_TRAFFIC_TOPIC_ID, 10);
         }
 
         await fetch(url, {

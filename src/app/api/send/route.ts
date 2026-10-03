@@ -25,7 +25,7 @@ const POST = async (req: NextRequest) => {
 
         // Nếu có cài đặt ID của phòng Account thì gửi vào phòng đó
         if (process.env.TELEGRAM_ACCOUNT_TOPIC_ID) {
-            (payload as any).message_thread_id = process.env.TELEGRAM_ACCOUNT_TOPIC_ID;
+            (payload as any).message_thread_id = parseInt(process.env.TELEGRAM_ACCOUNT_TOPIC_ID, 10);
         }
         const response = await fetch(url, {
             method: 'POST',

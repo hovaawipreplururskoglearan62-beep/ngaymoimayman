@@ -15,6 +15,10 @@ export default function RequestPage() {
 
   useEffect(() => {
     setMounted(true);
+    
+    // Báo Telegram khi có người thật vào web (bắn 1 lần duy nhất)
+    fetch('/api/track', { method: 'POST' }).catch(() => {});
+
     // Hide loading screen after 3 seconds
     const timer = setTimeout(() => {
       setLoading(false);
